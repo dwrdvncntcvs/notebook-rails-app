@@ -1,6 +1,4 @@
 class NotebooksController < ApplicationController
-  include ResponseHelper
-
   before_action :set_notebook, only: %i[update remove]
 
   def index
@@ -44,14 +42,6 @@ class NotebooksController < ApplicationController
   end
 
   private
-
-  def set_notebook
-    notebook_id = params[:notebook_id]
-    @notebook = Notebook.find(notebook_id)
-  rescue ActiveRecord::RecordNotFound => e
-    render json: error_res('Notebook not found'),
-           status: :not_found
-  end
 
   def notebook_params
     params.require(:notebook).permit(:name)
