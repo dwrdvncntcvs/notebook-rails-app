@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   post 'auth/sign-up', to: 'auth#sign_up'
 
   # User Routes
-  get "users/:username", to: "users#show"
+  get 'users/:username', to: 'users#show'
+  put 'users/:user_id', to: 'users#update'
 
   # Notebook Routes
   get  'notebooks', to: 'notebooks#index'

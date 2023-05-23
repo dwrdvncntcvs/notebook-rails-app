@@ -4,8 +4,17 @@ class ApplicationController < ActionController::API
 
   def set_user_by_username
     username = params[:username]
-    @user = User.find_by(username: username)
+    @user = User.find_by(username:)
     return unless @user.nil?
+
+    render json: error_res('User not found'),
+           status: :not_found
+  end
+
+  def set_user
+    user_id = params[:user_id]
+    @user = User.find(user_id)
+  rescue ActiveRecord::RecordNotFound => e
     render json: error_res('User not found'),
            status: :not_found
   end
