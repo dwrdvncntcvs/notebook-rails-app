@@ -1,7 +1,7 @@
 class NotebooksController < ApplicationController
   include ResponseHelper
 
-  before_action :set_notebook, only: [:update]
+  before_action :set_notebook, only: %i[update remove]
 
   def index
     notebooks = Notebook.all
@@ -29,6 +29,16 @@ class NotebooksController < ApplicationController
              status: :ok
     else
       render json: error_res(notebook.errors.full_messages),
+             status: :unprocessable_entity
+    end
+  end
+
+  def remove
+    if @notebook.destroy
+      render json: success_res(nil, 'Notebook deleted successfully'),
+             status: :ok
+    else
+      render json: error_res(@notebook.errors.full_messages),
              status: :unprocessable_entity
     end
   end
