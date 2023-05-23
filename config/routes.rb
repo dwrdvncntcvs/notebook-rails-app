@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # Auth Routes
-  post 'auth/sign-in,', to: 'auth#sign_in'
+  post 'auth/sign-in', to: 'auth#sign_in'
   post 'auth/sign-up', to: 'auth#sign_up'
 
   # Notebook Routes

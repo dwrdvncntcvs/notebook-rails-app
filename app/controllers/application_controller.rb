@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include ResponseHelper
+  include JwtHelper
 
   def set_notebook
     notebook_id = params[:notebook_id]
