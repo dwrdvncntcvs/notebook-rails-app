@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
   before_action :set_page, only: %i[index create]
-  before_action :set_note, only: %i[update]
+  before_action :set_note, only: %i[update remove]
 
   def index
     notes = Note.where(page_id: params[:page_id])
@@ -26,6 +26,16 @@ class NotesController < ApplicationController
     if @note.update(note_params)
       note = Note.find(params[:note_id])
       render json: success_res({ note: }, 'Note updated successfully'),
+             status: :ok
+    else
+      render json: error_res(@note.errors.full_messages),
+             status: :unprocessable_entity
+    end
+  end
+
+  def remove
+    if @note.destroy
+      render json: success_res(nil, 'Note deleted successfully'),
              status: :ok
     else
       render json: error_res(@note.errors.full_messages),
