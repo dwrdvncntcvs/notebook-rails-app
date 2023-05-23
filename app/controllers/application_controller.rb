@@ -2,6 +2,14 @@ class ApplicationController < ActionController::API
   include ResponseHelper
   include JwtHelper
 
+  def set_user_by_username
+    username = params[:username]
+    @user = User.find_by(username: username)
+    return unless @user.nil?
+    render json: error_res('User not found'),
+           status: :not_found
+  end
+
   def set_notebook
     notebook_id = params[:notebook_id]
     @notebook = Notebook.find(notebook_id)

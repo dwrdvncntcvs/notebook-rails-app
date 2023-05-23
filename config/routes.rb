@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   post 'auth/sign-in', to: 'auth#sign_in'
   post 'auth/sign-up', to: 'auth#sign_up'
 
+  # User Routes
+  get "users/:username", to: "users#show"
+
   # Notebook Routes
   get  'notebooks', to: 'notebooks#index'
   post 'notebooks', to: 'notebooks#create'

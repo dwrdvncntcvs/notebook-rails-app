@@ -16,7 +16,7 @@ class AuthController < ApplicationController
     user = User.new(user_params)
 
     if user.save
-      render json: success_res({ user: }, 'User created successfully'),
+      render json: success_res({ user: user.as_json }, 'User created successfully'),
              status: :ok
     else
       render json: error_res(user.errors.full_messages),
