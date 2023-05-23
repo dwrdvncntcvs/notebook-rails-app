@@ -8,4 +8,12 @@ class ApplicationController < ActionController::API
     render json: error_res('Notebook not found'),
            status: :not_found
   end
+
+  def set_page
+    page_id = params[:page_id]
+    @page = Page.find(page_id)
+  rescue ActiveRecord::RecordNotFound => e
+    render json: error_res('Page not found'),
+           status: :not_found
+  end
 end

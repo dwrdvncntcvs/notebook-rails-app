@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   # Page Routes
   get 'pages/:notebook_id', to: 'pages#index'
   post 'pages/:notebook_id', to: 'pages#create'
+  put 'pages/:page_id', to: 'pages#update'
 end
