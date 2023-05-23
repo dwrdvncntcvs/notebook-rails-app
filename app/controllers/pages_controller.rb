@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   before_action :set_notebook, only: %i[index create]
-  before_action :set_page, only: %i[update]
+  before_action :set_page, only: %i[update remove]
 
   def index
     pages = Page.where(notebook_id: params[:notebook_id])
@@ -26,6 +26,16 @@ class PagesController < ApplicationController
     if @page.update(page_params)
       page = Page.find(params[:page_id])
       render json: success_res({ page: }, 'Page updated successfully'),
+             status: :ok
+    else
+      render json: error_res(@page.errors.full_messages),
+             status: :unprocessable_entity
+    end
+  end
+
+  def remove
+    if @page.destroy
+      render json: success_res(nil, 'Page deleted successfuly'),
              status: :ok
     else
       render json: error_res(@page.errors.full_messages),
