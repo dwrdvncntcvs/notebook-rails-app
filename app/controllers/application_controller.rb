@@ -16,4 +16,12 @@ class ApplicationController < ActionController::API
     render json: error_res('Page not found'),
            status: :not_found
   end
+
+  def set_note
+    note_id = params[:note_id]
+    @note = Note.find(note_id)
+  rescue ActiveRecord::RecordNotFound => e
+    render json: error_res('Note not found'),
+           status: :not_found
+  end
 end

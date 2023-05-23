@@ -12,5 +12,7 @@ Rails.application.routes.draw do
   delete 'pages/:page_id', to: 'pages#remove'
 
   # Note Routes
-  get 'notes/:page_id', to: "notes#index"
+  get 'notes/:page_id', to: 'notes#index'
+  post 'notes/:page_id', to: 'notes#create'
+  put 'notes/:note_id', to: 'notes#update'
 end
