@@ -1,11 +1,20 @@
+import {
+    NBHeader,
+    NBMain,
+    NBSide,
+    NBTextContainer,
+} from "../../components/Notebooks";
+import { NotebookLayout } from "../../layouts";
+import scss from "./notebookPage.module.scss";
+
 const NotebookPage = () => {
     return (
-        <div>
-            <header>Header</header>
-            <aside>Side</aside>
-            <main>Main</main>
-            <section>Section</section>
-        </div>
+        <NotebookLayout>
+            <NBHeader />
+            <NBSide />
+            <NBMain />
+            <NBTextContainer />
+        </NotebookLayout>
     );
 };
 
