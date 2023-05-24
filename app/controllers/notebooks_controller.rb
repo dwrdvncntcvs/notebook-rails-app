@@ -1,8 +1,10 @@
 class NotebooksController < ApplicationController
   before_action :set_notebook, only: %i[update remove]
+  before_action :auth_notebook_action, only: %i[update remove]
+  
 
   def index
-    notebooks = Notebook.all
+    notebooks = Notebook.where(user: @current_user)
 
     render json: success_res({ notebooks: }, 'All notebooks'),
            status: :ok
@@ -10,6 +12,7 @@ class NotebooksController < ApplicationController
 
   def create
     notebook = Notebook.new notebook_params
+    notebook.user = @current_user
 
     if notebook.save
       render json: success_res({ notebook: }),
@@ -42,6 +45,10 @@ class NotebooksController < ApplicationController
   end
 
   private
+
+  def auth_notebook_action
+    authorize_action(@notebook.id)
+  end
 
   def notebook_params
     params.require(:notebook).permit(:name)

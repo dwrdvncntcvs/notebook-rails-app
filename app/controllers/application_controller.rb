@@ -18,6 +18,13 @@ class ApplicationController < ActionController::API
     @current_user = User.find(decoded_data['user_id'])
   end
 
+  def authorize_action(model_id)
+    return unless @current_user.id != model_id
+
+    render json: error_res('Access Denied'),
+           status: :forbidden
+  end
+
   def set_user_by_username
     username = params[:username]
     @user = User.find_by(username:)
