@@ -12,10 +12,18 @@ class ApplicationController < ActionController::API
                     status: :bad_request
     end
 
-    token = authorization.split(" ").last
+    token = authorization.split(' ').last
     decoded_data = jwt_decode(token)
 
     @current_user = User.find(decoded_data['user_id'])
+  end
+
+  def restrict_notebook_access
+    authorize_action(@notebook.user_id)
+  end
+
+  def restrict_page_access
+    authorize_action(@page.notebook.user_id)
   end
 
   def authorize_action(model_id)

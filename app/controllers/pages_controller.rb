@@ -1,6 +1,8 @@
 class PagesController < ApplicationController
   before_action :set_notebook, only: %i[index create]
   before_action :set_page, only: %i[update remove]
+  before_action :restrict_notebook_access, only: %i[index create]
+  before_action :restrict_page_access, only: %i[update remove]
 
   def index
     pages = Page.where(notebook_id: params[:notebook_id])
