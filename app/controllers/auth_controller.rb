@@ -31,7 +31,7 @@ class AuthController < ApplicationController
 
     return unless @user.nil?
 
-    render json: error_res('User not found'),
+    render json: error_res('Invalid Username or Password'),
            status: :not_found
   end
 
