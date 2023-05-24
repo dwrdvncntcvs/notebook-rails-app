@@ -39,38 +39,30 @@ class ApplicationController < ActionController::API
   end
 
   def set_user
-    user_id = params[:user_id]
-    @user = User.find(user_id)
-  rescue ActiveRecord::RecordNotFound => e
-    render json: error_res('User not found'),
-           status: :not_found
+    @user = set_model(User, :user_id, 'User not found')
   end
 
   def set_notebook
-    notebook_id = params[:notebook_id]
-    @notebook = Notebook.find(notebook_id)
-  rescue ActiveRecord::RecordNotFound => e
-    render json: error_res('Notebook not found'),
-           status: :not_found
+    @notebook = set_model(Notebook, :notebook_id, 'Notebook not found')
   end
 
   def set_page
-    page_id = params[:page_id]
-    @page = Page.find(page_id)
-  rescue ActiveRecord::RecordNotFound => e
-    render json: error_res('Page not found'),
-           status: :not_found
+    @page = set_model(Page, :page_id, 'Page not found')
   end
 
   def set_note
-    note_id = params[:note_id]
-    @note = Note.find(note_id)
-  rescue ActiveRecord::RecordNotFound => e
-    render json: error_res('Note not found'),
-           status: :not_found
+    @note = set_model(Note, :note_id, 'Note not found')
   end
 
   private
+
+  def set_model(model, param_key, error_message)
+    id = params[param_key]
+    model.find(id)
+  rescue ActiveRecord::RecordNotFound => e
+    render json: error_res(error_message),
+           status: :not_found
+  end
 
   def authorize_action(model_id)
     return unless @current_user.id != model_id
