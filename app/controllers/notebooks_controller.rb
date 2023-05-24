@@ -1,6 +1,6 @@
 class NotebooksController < ApplicationController
   before_action :set_notebook, only: %i[update remove]
-  before_action :auth_notebook_action, only: %i[update remove]
+  before_action :restrict_notebook_access, only: %i[update remove]
   
   def index
     notebooks = Notebook.where(user: @current_user)
@@ -44,10 +44,6 @@ class NotebooksController < ApplicationController
   end
 
   private
-
-  def auth_notebook_action
-    authorize_action(@notebook.id)
-  end
 
   def notebook_params
     params.require(:notebook).permit(:name)

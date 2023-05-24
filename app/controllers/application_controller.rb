@@ -26,13 +26,6 @@ class ApplicationController < ActionController::API
     authorize_action(@page.notebook.user_id)
   end
 
-  def authorize_action(model_id)
-    return unless @current_user.id != model_id
-
-    render json: error_res('Access Denied'),
-           status: :forbidden
-  end
-
   def set_user_by_username
     username = params[:username]
     @user = User.find_by(username:)
@@ -72,5 +65,14 @@ class ApplicationController < ActionController::API
   rescue ActiveRecord::RecordNotFound => e
     render json: error_res('Note not found'),
            status: :not_found
+  end
+
+  private
+
+  def authorize_action(model_id)
+    return unless @current_user.id != model_id
+
+    render json: error_res('Access Denied'),
+           status: :forbidden
   end
 end
