@@ -1,6 +1,22 @@
 class ApplicationController < ActionController::API
+  before_action :authorize_request
+
   include ResponseHelper
   include JwtHelper
+
+  def authorize_request
+    authorization = request.headers['Authorization']
+
+    if authorization.nil?
+      return render json: error_res('Sign In First'),
+                    status: :bad_request
+    end
+
+    token = authorization.split(" ").last
+    decoded_data = jwt_decode(token)
+
+    @current_user = User.find(decoded_data['user_id'])
+  end
 
   def set_user_by_username
     username = params[:username]

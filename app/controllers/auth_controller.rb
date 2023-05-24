@@ -1,4 +1,5 @@
 class AuthController < ApplicationController
+  skip_before_action :authorize_request
   before_action :check_user_creds, only: %i[sign_in]
 
   def sign_in
