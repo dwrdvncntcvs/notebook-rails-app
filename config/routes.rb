@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # User Routes
   get 'users/:username', to: 'users#show'
   put 'users/:user_id', to: 'users#update'
+  delete 'users/:user_id', to: 'users#remove'
 
   # Notebook Routes
   get  'notebooks', to: 'notebooks#index'
