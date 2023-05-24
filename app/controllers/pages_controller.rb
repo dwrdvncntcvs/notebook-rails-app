@@ -5,10 +5,25 @@ class PagesController < ApplicationController
   before_action :restrict_page_access, only: %i[update remove]
 
   def index
-    pages = Page.where(notebook_id: params[:notebook_id])
+    page, limit = pagination
 
-    render json: success_res({ pages: }, 'All notebook pages'),
+    puts page, limit
+
+    pages = Page.paginated_data(
+      'pages', {
+        page:,
+        limit:,
+        where: { notebook_id: params[:notebook_id] }
+      }
+    )
+
+    is_page_exceeded(pages)
+
+    render json: success_res(pages, 'All notebook pages'),
            status: :ok
+  rescue StandardError => e
+    render json: error_res(e),
+           status: :bad_request
   end
 
   def create

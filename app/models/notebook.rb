@@ -1,4 +1,6 @@
 class Notebook < ApplicationRecord
+  extend Pagination
+
   NAME_LENGTH_LIMIT = 50
 
   belongs_to :user

@@ -1,12 +1,26 @@
 class NotebooksController < ApplicationController
   before_action :set_notebook, only: %i[update remove]
   before_action :restrict_notebook_access, only: %i[update remove]
-  
-  def index
-    notebooks = Notebook.where(user: @current_user)
 
-    render json: success_res({ notebooks: }, 'All notebooks'),
+  def index
+    page, limit = pagination
+
+    notebooks = Notebook.paginated_data(
+      'notebooks',
+      {
+        page:,
+        limit:,
+        where: { user: @current_user }
+      }
+    )
+
+    is_page_exceeded(notebooks)
+
+    render json: success_res(notebooks, 'All notebooks'),
            status: :ok
+  rescue StandardError => e
+    render json: error_res(e),
+           status: :bad_request
   end
 
   def create

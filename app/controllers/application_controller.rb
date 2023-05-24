@@ -4,6 +4,9 @@ class ApplicationController < ActionController::API
   include ResponseHelper
   include JwtHelper
 
+  DEFAULT_PAGE_SIZE = 10
+  DEFAULT_PAGE_NUMBER = 1
+
   def authorize_request
     authorization = request.headers['Authorization']
 
@@ -60,6 +63,20 @@ class ApplicationController < ActionController::API
 
   def set_note
     @note = set_model(Note, :note_id, 'Note not found')
+  end
+
+  def pagination
+    puts params
+    page_number = params[:page] || DEFAULT_PAGE_NUMBER
+    page_size = params[:limit] || DEFAULT_PAGE_SIZE
+
+    [page_number.to_i, page_size.to_i]
+  end
+
+  def is_page_exceeded(data)
+    return unless data['meta'][:page] > data['meta'][:total_pages]
+
+    raise 'Page exceeded'
   end
 
   private

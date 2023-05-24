@@ -5,10 +5,23 @@ class NotesController < ApplicationController
   before_action :restrict_note_access, only: %i[update remove]
 
   def index
-    notes = Note.where(page_id: params[:page_id])
+    page, limit = pagination
 
-    render json: success_res({ notes: }, 'All page notes'),
+    notes = Note.paginated_data(
+      'notes', {
+        page:,
+        limit:,
+        where: { page_id: params[:page_id] }
+      }
+    )
+
+    is_page_exceeded(notes)
+
+    render json: success_res(notes, 'All page notes'),
            status: :ok
+  rescue StandardError => e
+    render json: error_res(e),
+           status: :bad_request
   end
 
   def create
