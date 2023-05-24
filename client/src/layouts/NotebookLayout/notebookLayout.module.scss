@@ -1,36 +1,43 @@
 .notebook-layout {
     display: grid;
     height: 100vh;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: auto repeat(8, 1fr) auto;
+    grid: repeat(12, 1fr) / repeat(12, 1fr);
 
-    header, aside, main, section {
-        padding: 1rem;
+    aside,
+    main,
+    nav,
+    section {
+        // padding: 1rem;
+    }
+
+    header, nav {
+        border-bottom: 1px solid gray;
     }
 
     header {
-        grid-column: 1 / 12;
-        height: 6rem;
-        border: 1px solid gray;
+        grid-column: 1 / 1;
+    }
+
+    nav {
+        grid-column: 2 / 13;
     }
 
     aside {
         grid-column: 1;
         border: 1px solid gray;
-        grid-row: 2 / 12;
+        grid-row: 2 / -1;
         min-width: 17.5rem;
     }
 
     main {
-        grid-column: 2 / span 6;
-        grid-row: 2 / span 9;
+        grid-column: 2 / 13;
+        grid-row: 2 / 11;
         border: 1px solid gray;
     }
 
     section {
-        height: 10rem;
-        grid-column: 2 / -1;
-        grid-row: 11;
+        grid-column: 2 / 13;
+        grid-row: 11 / 13;
         border: 1px solid gray;
     }
 }

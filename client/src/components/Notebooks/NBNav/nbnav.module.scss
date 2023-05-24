@@ -1,0 +1,17 @@
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+
+    .notebook-nav {
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .actions-container {
+        display: flex;
+        width: 10rem;
+        justify-content: center;
+        align-items: center;
+    }
+}

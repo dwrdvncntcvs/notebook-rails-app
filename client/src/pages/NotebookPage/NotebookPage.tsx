@@ -1,6 +1,7 @@
 import {
     NBHeader,
     NBMain,
+    NBNav,
     NBSide,
     NBTextContainer,
 } from "../../components/Notebooks";
@@ -11,6 +12,7 @@ const NotebookPage = () => {
     return (
         <NotebookLayout>
             <NBHeader />
+            <NBNav />
             <NBSide />
             <NBMain />
             <NBTextContainer />
