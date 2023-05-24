@@ -29,6 +29,10 @@ class ApplicationController < ActionController::API
     authorize_action(@page.notebook.user_id)
   end
 
+  def restrict_note_access
+    authorize_action(@note.page.notebook.user_id)
+  end
+
   def set_user_by_username
     username = params[:username]
     @user = User.find_by(username:)

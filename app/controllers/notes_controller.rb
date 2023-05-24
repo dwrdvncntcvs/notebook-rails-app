@@ -1,6 +1,8 @@
 class NotesController < ApplicationController
   before_action :set_page, only: %i[index create]
   before_action :set_note, only: %i[update remove]
+  before_action :restrict_page_access, only: %i[index create]
+  before_action :restrict_note_access, only: %i[update remove]
 
   def index
     notes = Note.where(page_id: params[:page_id])
