@@ -16,6 +16,9 @@ class ApplicationController < ActionController::API
     decoded_data = jwt_decode(token)
 
     @current_user = User.find(decoded_data['user_id'])
+  rescue ActiveRecord::RecordNotFound => e
+    render json: error_res('Sign In First'),
+           status: :bad_request
   end
 
   def restrict_notebook_access
