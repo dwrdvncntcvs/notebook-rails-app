@@ -8,5 +8,11 @@ export interface ErrorResponse {
     error: string | string[];
     message: string;
     timestamp: string;
-    status: number
+    status: number;
+}
+
+export interface PageMeta {
+    page: number;
+    limit: number;
+    total_pages: number;
 }

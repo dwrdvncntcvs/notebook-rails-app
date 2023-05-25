@@ -6,6 +6,26 @@
         width: 100%;
         display: flex;
         align-items: flex-end;
+
+        ul {
+            display: flex;
+            list-style-type: none;
+            gap: 1rem;
+            padding-inline: 1rem;
+
+            li {
+                padding: 0.5rem 1rem;
+                border-radius: 0.5rem 0.5rem 0 0;
+                user-select: none;
+                cursor: pointer;
+
+                &.active {
+                    border: 2px solid gray;
+                    border-bottom: none;
+                    background-color: gray;
+                }
+            }
+        }
     }
 
     .actions-container {
