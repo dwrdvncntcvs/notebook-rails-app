@@ -1,0 +1,20 @@
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .form-control {
+        display: flex;
+        flex-direction: column;
+
+        input {
+            padding: 0.75rem;
+            font-size: 1rem;
+        }
+    }
+
+    button {
+        padding: 0.75rem;
+        cursor: pointer;
+    }
+}
