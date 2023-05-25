@@ -3,10 +3,14 @@ import { AuthForm } from "../../components/Auth";
 import { SignInInitValues } from "../../types/auth";
 import { initialValues, signInFields } from "./fields";
 import { AuthContainer } from "../../layouts";
+import { useAuth } from "../../context/Auth";
 
 const SignInPage = () => {
-    const submitHandler = (values: SignInInitValues) => {
+    const { signIn } = useAuth();
+
+    const submitHandler = async (values: SignInInitValues) => {
         console.log("Values: ", values);
+        await signIn(values);
     };
 
     return (

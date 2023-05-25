@@ -1,14 +1,10 @@
 import { SignInInitValues } from "./auth";
 import { SuccessResponse } from "./response";
 
-interface SignInApiParams {
-    user: SignInInitValues;
-}
+interface SignInApiParams extends SignInInitValues {}
 
 interface ISignInResponse {
-    data: {
-        token: string;
-    };
+    token: string;
 }
 
-export type SignInResponse = SuccessResponse<ISignInResponse> 
+export type SignInResponse = SuccessResponse<ISignInResponse>;
