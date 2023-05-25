@@ -3,6 +3,7 @@ import {
     PropsWithChildren,
     createContext,
     useContext,
+    useEffect,
     useState,
 } from "react";
 import { SignInApiParams, SignUpApiParams } from "../types/api_auth";
@@ -12,6 +13,8 @@ import {
     SignUpCtxMethod,
 } from "../types/auth_context";
 import { signInApi, signUpApi } from "../api/auth";
+import { AuthStorage } from "../services";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext<IAuthContext>({
     token: "",
@@ -22,12 +25,23 @@ const AuthContext = createContext<IAuthContext>({
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     const [token, setToken] = useState("");
+    const authStorage = new AuthStorage(localStorage);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const authToken = authStorage.getToken();
+        console.log("Auth Token: ", authToken);
+    }, [token]);
 
     const signIn: SignInCtxMethod = async (user: SignInApiParams) => {
         try {
             const response = await signInApi(user);
-            console.log(response);
-            setToken(response.data.token);
+            const token = response.data.token;
+
+            authStorage.saveToken(token);
+            setToken(token);
+            navigate("/");
         } catch (err) {
             console.log(err);
         }
