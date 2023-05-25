@@ -10,6 +10,7 @@ import { SignInApiParams, SignUpApiParams } from "../types/api_auth";
 import {
     IAuthContext,
     SignInCtxMethod,
+    SignOutCtxMethod,
     SignUpCtxMethod,
 } from "../types/auth_context";
 import { signInApi, signUpApi } from "../api/auth";
@@ -21,6 +22,7 @@ const AuthContext = createContext<IAuthContext>({
     isAuth: false,
     signIn: async (_user: SignInApiParams) => {},
     signUp: async (_userData: SignUpApiParams) => {},
+    signOut: () => {},
 });
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -56,9 +58,13 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         }
     };
 
+    const signOut: SignOutCtxMethod = () => {
+        authStorage.removeToken();
+    };
+
     return (
         <AuthContext.Provider
-            value={{ signIn, token, isAuth: !!token, signUp }}
+            value={{ signIn, token, isAuth: !!token, signUp, signOut }}
         >
             {children}
         </AuthContext.Provider>
