@@ -33,7 +33,11 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
     useEffect(() => {
         const authToken = authStorage.getToken();
-        console.log("Auth Token: ", authToken);
+        
+        if (authToken) {
+            setToken(authToken);
+            navigate("/");
+        }
     }, [token]);
 
     const signIn: SignInCtxMethod = async (user: SignInApiParams) => {
