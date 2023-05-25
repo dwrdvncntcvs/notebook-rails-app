@@ -53,6 +53,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         try {
             const response = await signUpApi(userData);
             console.log(response);
+            navigate("/sign-in");
         } catch (err) {
             console.log(err);
         }
@@ -60,6 +61,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const signOut: SignOutCtxMethod = () => {
         authStorage.removeToken();
+        navigate("/sign-in");
     };
 
     return (
