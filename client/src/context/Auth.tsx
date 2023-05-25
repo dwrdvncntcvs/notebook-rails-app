@@ -5,14 +5,19 @@ import {
     useContext,
     useState,
 } from "react";
-import { SignInApiParams } from "../types/api_auth";
-import { IAuthContext, SignInCtxMethod } from "../types/auth_context";
-import { signInApi } from "../api/auth";
+import { SignInApiParams, SignUpApiParams } from "../types/api_auth";
+import {
+    IAuthContext,
+    SignInCtxMethod,
+    SignUpCtxMethod,
+} from "../types/auth_context";
+import { signInApi, signUpApi } from "../api/auth";
 
 const AuthContext = createContext<IAuthContext>({
     token: "",
     isAuth: false,
-    signIn: async (user: SignInApiParams) => {},
+    signIn: async (_user: SignInApiParams) => {},
+    signUp: async (_userData: SignUpApiParams) => {},
 });
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -28,8 +33,19 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         }
     };
 
+    const signUp: SignUpCtxMethod = async (userData: SignUpApiParams) => {
+        try {
+            const response = await signUpApi(userData);
+            console.log(response);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
-        <AuthContext.Provider value={{ signIn, token, isAuth: !!token }}>
+        <AuthContext.Provider
+            value={{ signIn, token, isAuth: !!token, signUp }}
+        >
             {children}
         </AuthContext.Provider>
     );

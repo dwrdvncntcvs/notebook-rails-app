@@ -5,7 +5,7 @@ export interface SuccessResponse<D> {
 }
 
 export interface ErrorResponse {
-    error: string;
+    error: string | string[];
     message: string;
     timestamp: string;
     status: number
