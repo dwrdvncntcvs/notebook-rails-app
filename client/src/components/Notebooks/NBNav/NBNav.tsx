@@ -1,3 +1,4 @@
+import { HiPlus, HiArrowRight } from "react-icons/hi";
 import { useAuth } from "../../../context/Auth";
 import { useNotebook } from "../../../context/Notebook";
 import { useActiveNotebook } from "../../../hooks";
@@ -28,8 +29,14 @@ const NBNav = () => {
                 </ul>
             </div>
             <div className={scss["actions-container"]}>
-                <button>Add</button>
-                {isAuth && <button>Log out</button>}
+                <button>
+                    <HiPlus />
+                </button>
+                {isAuth && (
+                    <button>
+                        <HiArrowRight />
+                    </button>
+                )}
             </div>
         </nav>
     );

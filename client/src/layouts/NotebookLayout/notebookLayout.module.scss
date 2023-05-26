@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .notebook-layout {
     display: grid;
     height: 100vh;
@@ -10,7 +12,7 @@
     }
 
     header, nav {
-        border-bottom: 1px solid gray;
+        border-bottom: 1px solid $primary-color;
     }
 
     header {
@@ -23,7 +25,7 @@
 
     aside {
         grid-column: 1;
-        border: 1px solid gray;
+        border: 1px solid $primary-color;
         grid-row: 2 / -1;
         min-width: 17.5rem;
     }
@@ -31,12 +33,12 @@
     main {
         grid-column: 2 / 13;
         grid-row: 2 / 11;
-        border: 1px solid gray;
+        border: 1px solid $primary-color;
     }
 
     section {
         grid-column: 2 / 13;
         grid-row: 11 / 13;
-        border: 1px solid gray;
+        border: 1px solid $primary-color;
     }
 }

@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 .nav-container {
     display: flex;
     justify-content: space-between;
@@ -20,9 +22,10 @@
                 cursor: pointer;
 
                 &.active {
-                    border: 2px solid gray;
+                    border: 2px solid $primary-color;
                     border-bottom: none;
-                    background-color: gray;
+                    background-color: $primary-color;
+                    color: $quaternary-color;
                 }
             }
         }
@@ -33,5 +36,26 @@
         width: 10rem;
         justify-content: center;
         align-items: center;
+        gap: 1rem;
+
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 100%;
+            border: 2px solid $primary-color;
+            background-color: $quaternary-color;
+            font-size: 1.5rem;
+            color: $primary-color;
+            transition: all ease 0.2s;
+            cursor: pointer;
+
+            &:hover {
+                color: white;
+                background-color: $primary-color;
+            }
+        }
     }
 }
