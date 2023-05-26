@@ -2,6 +2,8 @@ import { Backdrop, Modal } from "..";
 import { FC, PropsWithChildren, useEffect } from "react";
 import { IModalName } from "../../../types/modal_context";
 import { useModal } from "../../../context/Modal";
+import { HiX } from "react-icons/hi";
+import scss from "./modalOverlay.module.scss";
 
 interface ModalOverlayProps {
     destroyModal: () => void;
@@ -28,7 +30,12 @@ const ModalOverlay: FC<PropsWithChildren & ModalOverlayProps> = ({
     return name === modalName ? (
         <>
             <Backdrop destroy={destroy} />
-            <Modal>{children}</Modal>
+            <Modal>
+                <button id={scss["close-button"]} onClick={destroy}>
+                    <HiX />
+                </button>
+                {children}
+            </Modal>
         </>
     ) : null;
 };

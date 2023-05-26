@@ -1,4 +1,4 @@
-import { Notebook } from "./notebooks";
+import { Notebook, NotebookValues } from "./notebooks";
 import { PageMeta, SuccessResponse } from "./response";
 
 interface IGetNotebookResponse {
@@ -11,7 +11,7 @@ interface ICreateNotebookResponse {
 }
 
 export interface CreateNotebookApiParam {
-    name: string;
+    notebook: NotebookValues;
 }
 
 export type GetNotebookResponse = SuccessResponse<IGetNotebookResponse>;

@@ -5,3 +5,14 @@ export interface Notebook {
     created_at: string;
     updated_at: string;
 }
+
+export interface NotebookField {
+    name: string;
+    label: string;
+    type: string;
+    placeholder: string;
+}
+
+export interface NotebookValues {
+    name: string;
+}

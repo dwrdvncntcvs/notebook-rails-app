@@ -8,12 +8,14 @@ import {
     useState,
 } from "react";
 import { useAuth } from "./Auth";
-import { getAllNotebooksApi } from "../api/notebook";
+import { createNotebookApi, getAllNotebooksApi } from "../api/notebook";
 import { Notebook } from "../types/notebooks";
-import { INotebookContext } from "../types/notebook_context";
+import {
+    CreateNotebookCtxMethod,
+    INotebookContext,
+} from "../types/notebook_context";
 import { PageMeta } from "../types/response";
 import { useActiveNotebook } from "../hooks";
-
 const defaultMeta = {
     limit: 0,
     page: 0,
@@ -23,6 +25,7 @@ const defaultMeta = {
 const NotebookContext = createContext<INotebookContext>({
     notebooks: [],
     meta: defaultMeta,
+    createNotebook: async (_notebook) => {},
 });
 
 const NotebookProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -54,8 +57,21 @@ const NotebookProvider: FC<PropsWithChildren> = ({ children }) => {
         getAllNotebooks();
     }, [getAllNotebooks]);
 
+    const createNotebook: CreateNotebookCtxMethod = async (notebook) => {
+        try {
+            await createNotebookApi(
+                { notebook: { ...notebook } },
+                { Authorization: `Bearer ${token}` }
+            );
+
+            await getAllNotebooks();
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
-        <NotebookContext.Provider value={{ notebooks, meta }}>
+        <NotebookContext.Provider value={{ notebooks, meta, createNotebook }}>
             {children}
         </NotebookContext.Provider>
     );

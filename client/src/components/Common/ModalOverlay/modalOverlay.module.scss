@@ -1,0 +1,24 @@
+@import "../../../variables.scss";
+
+#close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    color: $primary-color;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all ease 0.2s;
+
+    &:hover {
+        background-color: $danger-color;
+        border-radius: 100%;
+        color: $quaternary-color;
+    }
+}

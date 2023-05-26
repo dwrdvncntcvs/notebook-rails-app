@@ -3,3 +3,4 @@ export { default as NBSide } from "./NBSide/NBSide";
 export { default as NBMain } from "./NBMain/NBMain";
 export { default as NBTextContainer } from "./NBTextContainer/NBTextContainer";
 export { default as NBNav } from "./NBNav/NBNav";
+export { default as CreateNotebookForm } from "./CreateNotebookForm/CreateNotebookForm";
