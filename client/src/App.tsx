@@ -1,6 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import { NotebookPage, PortalPage, SignInPage, SignUpPage } from "./pages";
+import {
+    CreateNotebookPage,
+    NotebookPage,
+    PortalPage,
+    SignInPage,
+    SignUpPage,
+} from "./pages";
 import { AuthGuard } from "./routes";
+import Persistent from "./routes/Persistent";
 
 function App() {
     return (
@@ -9,8 +16,12 @@ function App() {
                 <Route path="/sign-in" element={<SignInPage />} />
                 <Route path="/sign-up" element={<SignUpPage />} />
             </Route>
-            <Route element={<AuthGuard />}>
-                <Route path="/" element={<NotebookPage />}></Route>
+            <Route path="" element={<Persistent />}>
+                <Route element={<AuthGuard />}>
+                    <Route path="/" element={<NotebookPage />}>
+                        <Route path="create" element={<CreateNotebookPage />} />
+                    </Route>
+                </Route>
             </Route>
         </Routes>
     );

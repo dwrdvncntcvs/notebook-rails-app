@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import {
     NBHeader,
     NBMain,
@@ -15,6 +16,7 @@ const NotebookPage = () => {
             <NBSide />
             <NBMain />
             <NBTextContainer />
+            <Outlet />
         </NotebookLayout>
     );
 };

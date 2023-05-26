@@ -3,11 +3,14 @@ import { useAuth } from "../../../context/Auth";
 import { useNotebook } from "../../../context/Notebook";
 import { useActiveNotebook } from "../../../hooks";
 import scss from "./nbnav.module.scss";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const NBNav = () => {
     const { isAuth } = useAuth();
     const { notebooks } = useNotebook();
+    const navigate = useNavigate();
     const { isSelected, selectNotebook } = useActiveNotebook();
+    const location = useLocation();
 
     return (
         <nav className={scss["nav-container"]}>
@@ -29,7 +32,13 @@ const NBNav = () => {
                 </ul>
             </div>
             <div className={scss["actions-container"]}>
-                <button>
+                <button
+                    onClick={() =>
+                        navigate("/create", {
+                            state: { search: location.search },
+                        })
+                    }
+                >
                     <HiPlus />
                 </button>
                 {isAuth && (

@@ -2,7 +2,7 @@
 
 .modal {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     padding: 2rem;
     z-index: 1000;
     position: fixed;

@@ -1,9 +1,14 @@
-import { Outlet } from "react-router-dom";
-import scss from "./portalPage.module.scss"
+import { Navigate, Outlet } from "react-router-dom";
+import scss from "./portalPage.module.scss";
+import { useAuth } from "../../context/Auth";
 
 const PortalPage = () => {
-    return (
-        <div className={scss['portal-container']}>
+    const { isAuth } = useAuth();
+
+    return isAuth ? (
+        <Navigate to={"/"} />
+    ) : (
+        <div className={scss["portal-container"]}>
             <Outlet />
         </div>
     );
