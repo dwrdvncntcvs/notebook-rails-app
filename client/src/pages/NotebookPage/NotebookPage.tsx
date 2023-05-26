@@ -6,7 +6,6 @@ import {
     NBTextContainer,
 } from "../../components/Notebooks";
 import { NotebookLayout } from "../../layouts";
-import scss from "./notebookPage.module.scss";
 
 const NotebookPage = () => {
     return (
