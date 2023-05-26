@@ -12,7 +12,7 @@ import { getAllNotebooksApi } from "../api/notebook";
 import { Notebook } from "../types/notebooks";
 import { INotebookContext } from "../types/notebook_context";
 import { PageMeta } from "../types/response";
-import { useActiveNotebook } from "../hooks";
+// import { useActiveNotebook } from "../hooks";
 
 const defaultMeta = {
     limit: 0,
@@ -29,7 +29,7 @@ const NotebookProvider: FC<PropsWithChildren> = ({ children }) => {
     const [notebooks, setNotebooks] = useState<Notebook[]>([]);
     const [meta, setMeta] = useState<PageMeta>(defaultMeta);
     const { token } = useAuth();
-    const { notebookParams, selectNotebook } = useActiveNotebook();
+    // const { notebookParams, selectNotebook } = useActiveNotebook();
 
     const getAllNotebooks = useCallback(async () => {
         if (token) {
@@ -42,11 +42,11 @@ const NotebookProvider: FC<PropsWithChildren> = ({ children }) => {
             setNotebooks(notebooks);
             setMeta(response.data.meta);
 
-            if (!notebookParams) {
-                selectNotebook(notebooks[0].id.toString());
-            } else {
-                selectNotebook(notebookParams);
-            }
+            // if (!notebookParams) {
+            //     selectNotebook(notebooks[0].id.toString());
+            // } else {
+            //     selectNotebook(notebookParams);
+            // }
         }
     }, [token]);
 
