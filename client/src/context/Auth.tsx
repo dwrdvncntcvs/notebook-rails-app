@@ -25,20 +25,20 @@ const AuthContext = createContext<IAuthContext>({
     signOut: () => {},
 });
 
+const authStorage = new AuthStorage(localStorage);
+
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     const [token, setToken] = useState("");
-    const authStorage = new AuthStorage(localStorage);
 
     const navigate = useNavigate();
 
     useEffect(() => {
         const authToken = authStorage.getToken();
-        
+
         if (authToken) {
             setToken(authToken);
-            navigate("/");
         }
-    }, [token]);
+    }, []);
 
     const signIn: SignInCtxMethod = async (user: SignInApiParams) => {
         try {
