@@ -1,4 +1,5 @@
 import { axiosClient } from ".";
+import { Pagination } from "../types/api";
 import {
     CreateNotebookApiParam,
     CreateNotebookResponse,
@@ -8,10 +9,14 @@ import { ErrorResponse } from "../types/response";
 
 const notebookUrl = (endpoint: string) => `notebooks${endpoint}`;
 
-const getAllNotebooksApi = async (headers: any) => {
-    const response = await axiosClient.get(notebookUrl("/?page=1&limit=5"), {
-        headers: { ...headers },
-    });
+const getAllNotebooksApi = async (
+    { page = 1, limit = 10 }: Pagination,
+    headers: any
+) => {
+    const response = await axiosClient.get(
+        notebookUrl(`/?page=${page}&limit=${limit}`),
+        { headers: { ...headers } }
+    );
 
     const data = JSON.parse(response.data);
 

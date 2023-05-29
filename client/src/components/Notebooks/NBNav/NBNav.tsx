@@ -1,35 +1,33 @@
 import { HiPlus, HiArrowRight } from "react-icons/hi";
 import { useAuth } from "../../../context/Auth";
 import { useNotebook } from "../../../context/Notebook";
-import { useActiveNotebook } from "../../../hooks";
 import scss from "./nbnav.module.scss";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const NBNav = () => {
     const { isAuth } = useAuth();
-    const { notebooks } = useNotebook();
+    const { notebooks, nextNotebooks, prevNotebooks } = useNotebook();
     const navigate = useNavigate();
-    const { isSelected, selectNotebook } = useActiveNotebook();
     const location = useLocation();
 
     return (
         <nav className={scss["nav-container"]}>
             <div className={scss["notebook-nav"]}>
+                <button onClick={prevNotebooks}>Prev</button>
                 <ul>
                     {notebooks.map((notebook) => (
                         <li
-                            className={
-                                isSelected(notebook.id) ? scss["active"] : ""
-                            }
+                            className={""}
                             key={notebook.id}
                             onClick={() =>
-                                selectNotebook(notebook.id.toString())
+                                console.log("Notebook ID: ", notebook.id)
                             }
                         >
                             {notebook.name}
                         </li>
                     ))}
                 </ul>
+                <button onClick={nextNotebooks}>Next</button>
             </div>
             <div className={scss["actions-container"]}>
                 <button
